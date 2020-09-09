@@ -1,7 +1,9 @@
 import React from "react";
 
+import MenuList from "../menu-list";
+
 const Home = () => {
-  return "Test main page";
+  return <MenuList />;
 };
 
 export default Home;
