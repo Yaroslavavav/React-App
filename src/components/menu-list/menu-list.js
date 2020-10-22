@@ -1,40 +1,61 @@
-import React, { Component } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import MenuListItem from "../menu-list-item";
 // import { connect } from 'react-redux';
 import WithRestoService from "../hoc";
 // import {menuLoaded, menuRequested, menuError} from '../../actions';
 // import Spinner from "../spinner";
 // import Error from "../error";
-
 import "./menu-list.scss";
 
-class MenuList extends Component {
-  // componentDidMount() {
-  //     this.props.menuRequested();
+const styles = {
+  button: {
+    marginLeft: "10px",
+  },
+};
 
-  //     const {RestoService} = this.props;
-  //     RestoService.getMenuItems()
-  //         .then(res => this.props.menuLoaded(res))
-  //         .catch(error => this.props.menuError());
-  // }
+const MenuList = (props) => {
+  let intervalId = useRef(null);
+  const { fps = 60, step = 1, number } = props;
+  const getIntervalMS = (fps) => {
+    return 1000 / fps;
+  };
 
-  render() {
-    // const { menuItems, loading, error } = this.props;
-    // if (error) {
-    //   return <Error />;
-    // }
-    // if (loading) {
-    //   return <Spinner />;
-    // }
-    // const items = menuItems.map((menuItem) => {
-    //   return <MenuListItem key={menuItem.id} menuItem={menuItem} />;
-    // });
+  const [value, setValue] = useState(0);
+  const increment = () => {
+    setValue((val) => val + step);
+  };
 
-    // return <View items={items} />;
+  const stop = () => {
+    clearInterval(intervalId.current); // TODO interval ID is cached in closure!!!
+  };
 
-    return "Menu items";
-  }
-}
+  const start = () => {
+    const interval = getIntervalMS(fps);
+    intervalId.current = setInterval(increment, interval);
+  };
+
+  useEffect(() => {
+    if (value > number) {
+      stop();
+    }
+  }, [value, number]);
+
+  console.log(intervalId);
+
+  return (
+    <div>
+      <div>
+        <button style={styles.button} onClick={start} type={"button"}>
+          START
+        </button>
+        <button style={styles.button} onClick={stop} type={"button"}>
+          STOP
+        </button>
+      </div>
+      <div>{value}</div>
+    </div>
+  );
+};
 
 // const mapStateToProps = (state) => {
 //   return {

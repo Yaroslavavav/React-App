@@ -5,33 +5,33 @@ import { Route, Switch } from "react-router-dom";
 import AppHeader from "../app-header";
 import { Home, OurLocation, Feedback, Rooms } from "../nav-pages";
 
-export const useDebounce = (value, timeout) => {
-  const [state, setState] = useState(value);
+// export const useDebounce = (value, timeout) => {
+//   const [state, setState] = useState(value);
 
-  useEffect(() => {
-    const handler = setTimeout(() => setState(value), timeout);
+//   useEffect(() => {
+//     const handler = setTimeout(() => setState(value), timeout);
 
-    return () => clearTimeout(handler);
-  }, [value, timeout]);
+//     return () => clearTimeout(handler);
+//   }, [value, timeout]);
 
-  return state;
-};
+//   return state;
+// };
 
-const Counter = ({ fps }) => {
-  const [value, setValue] = useState(0);
-  const increment = (delta) => {
-    const value = (this.value += delta);
+// const Counter = ({ fps }) => {
+//   const [value, setValue] = useState(0);
+//   const increment = (delta) => {
+//     const value = (this.value += delta);
 
-    setValue(value);
-  };
+//     setValue(value);
+//   };
 
-  setInterval(() => {
-    const newValue = value + fps;
+//   setInterval(() => {
+//     const newValue = value + fps;
 
-    const val = useDebounce(newValue, 1000);
-    console.log(val);
-  }, 100);
-};
+//     const val = useDebounce(newValue, 1000);
+//     console.log(val);
+//   }, 100);
+// };
 
 export default class App extends Component {
   state = {
@@ -39,11 +39,10 @@ export default class App extends Component {
   };
 
   render() {
-    ß;
     return (
       <div className="main-wrapper">
         <AppHeader />
-        <Counter fps={60}></Counter>
+        {/* <Counter fps={60}></Counter> */}
         <Switch>
           <Route path="/" exact component={Home} />
           <Route path="/rooms" exact component={Rooms} />
@@ -54,4 +53,3 @@ export default class App extends Component {
     );
   }
 }
-ß;
